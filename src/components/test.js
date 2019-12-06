@@ -1,7 +1,7 @@
 import React, { useState, useContext, Profiler, useEffect } from 'react';
 import '../styles/filter.css'
 import { Button, Modal, InputGroup } from "react-bootstrap";
-// import Modal from "react-bulma-components/lib/components/modal";
+
 const filterOptions = [
     {
         keyDisplay: "General",
