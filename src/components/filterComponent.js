@@ -2,71 +2,36 @@ import React, { useState, useContext, Profiler, useEffect } from 'react';
 import '../styles/filter.css'
 import { Button, Modal, InputGroup } from "react-bootstrap";
 
-const filterOptions = [
-    {
-        keyDisplay: "General",
-        keyValue: "general",
-        options: [
-            { display: "Test1", value: "test1" },
-            { display: "Test2", value: "test2" },
-            { display: "test3", value: "test3" },
-        ]
-    }, {
-        keyDisplay: "Specific",
-        keyValue: "specific",
-        options: [
-            { display: "Test11", value: "test11" },
-            { display: "Test21", value: "test21" },
-            { display: "test31", value: "test31" },
-        ]
-    }, {
-        keyDisplay: "Blah",
-        keyValue: "blah",
-        radio: true,
-        options: [
-            { display: "Test12", value: "test12" },
-            { display: "Test22", value: "test22" },
-            { display: "test32", value: "test32" },
-        ]
-    },
 
-    {
-        keyDisplay: "Custom Input",
-        keyValue: "customInput",
-        customComponent: (props) => {
-            return <div>
-                This is purely custom I can do anything here
-                <input name="testInput" value={props.value.testInput || ""} onChange={(e) => props.handleInputTextChange(e)}></input>
-            </div>
-        },
-        options: [
-            { display: "Test12", value: "test12" },
-            { display: "Test22", value: "test22" },
-            { display: "test32", value: "test32" },
-        ],
-    },
-
-]
-const ServiceCard = props => {
+const FilterComponent = props => {
     const [show, setShow] = useState(false)
     const [selectedFilter, setSelectedFilter] = useState(false)
     const [filterState, setFilterState] = useState(props.initialFilterState || false)
     const handleShow = () => {
         setShow(true)
     }
+    const filterOptions = props.filterOptions
     const handleClose = () => {
         console.log("see the output",filterState)
-        // setShow(false)
+        props.returnStateToFilterMaster(filterState);
+        setShow(false);
     } 
-     const handleClear = () => {
-         // setShow(false)
-         setFilterState(false)
-         console.log("see the output",filterState)
+    const handleClear = () => {
+        setShow(false)
+        setFilterState(false)
+        props.returnStateToFilterMaster(false);
+        //  console.log("see the output",filterState)
     }
     const handleInputTextChange = (e) => {
         setFilterState({
             ...filterState,
             [e.target.name]: e.target.value
+        })
+    }    
+     const handleCheckBoxRadio = (e) => {
+        setFilterState({
+            ...filterState,
+            [e.target.name]: !filterState[e.target.name]
         })
     }    
 
@@ -109,7 +74,7 @@ const ServiceCard = props => {
                                         <InputGroup.Prepend >
                                             {
                                                 selectedFilter.radio ? <InputGroup.Radio onChange={handleInputTextChange.bind(this)} name={selectedFilter.keyValue} value={opt.value} checked={filterState[selectedFilter.keyValue]==opt.value ? true : false}  aria-label="Checkbox for following text input" /> :
-                                                    <InputGroup.Checkbox  onChange={handleInputTextChange.bind(this)} name={opt.value} checked={filterState[opt.value]=="on" ? true : false}   aria-label="Checkbox for following text input" />
+                                                    <InputGroup.Checkbox  onChange={handleCheckBoxRadio.bind(this)} name={opt.value} checked={filterState[opt.value] || false}   aria-label="Checkbox for following text input" />
                                             }
                                         </InputGroup.Prepend>
                                         {/* <FormControl aria-label="Text input with checkbox" /> */}
@@ -140,4 +105,4 @@ const ServiceCard = props => {
 
 }
 
-export default ServiceCard;
+export default FilterComponent;
