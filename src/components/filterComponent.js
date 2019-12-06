@@ -12,28 +12,27 @@ const FilterComponent = props => {
     }
     const filterOptions = props.filterOptions
     const handleClose = () => {
-        console.log("see the output",filterState)
+        console.log("see the output", filterState)
         props.returnStateToFilterMaster(filterState);
         setShow(false);
-    } 
+    }
     const handleClear = () => {
         setShow(false)
         setFilterState(false)
         props.returnStateToFilterMaster(false);
-        //  console.log("see the output",filterState)
     }
     const handleInputTextChange = (e) => {
         setFilterState({
             ...filterState,
             [e.target.name]: e.target.value
         })
-    }    
-     const handleCheckBoxRadio = (e) => {
+    }
+    const handleCheckBoxRadio = (e) => {
         setFilterState({
             ...filterState,
             [e.target.name]: !filterState[e.target.name]
         })
-    }    
+    }
 
     const handleFilterClick = (filterValue) => {
         setSelectedFilter(filterValue)
@@ -63,8 +62,8 @@ const FilterComponent = props => {
                             {
                                 selectedFilter ? selectedFilter.customComponent ? <div>
                                     {selectedFilter.customComponent({
-                                        handleInputTextChange : handleInputTextChange.bind(this),
-                                        value:filterState 
+                                        handleInputTextChange: handleInputTextChange.bind(this),
+                                        value: filterState
                                     })}
 
                                 </div> : "" : ""}
@@ -73,11 +72,15 @@ const FilterComponent = props => {
                                     <InputGroup className="mb-3">
                                         <InputGroup.Prepend >
                                             {
-                                                selectedFilter.radio ? <InputGroup.Radio onChange={handleInputTextChange.bind(this)} name={selectedFilter.keyValue} value={opt.value} checked={filterState[selectedFilter.keyValue]==opt.value ? true : false}  aria-label="Checkbox for following text input" /> :
-                                                    <InputGroup.Checkbox  onChange={handleCheckBoxRadio.bind(this)} name={opt.value} checked={filterState[opt.value] || false}   aria-label="Checkbox for following text input" />
+                                                selectedFilter.radio ? <InputGroup.Radio onChange={handleInputTextChange.bind(this)}
+                                                    name={selectedFilter.keyValue} value={opt.value}
+                                                    checked={filterState[selectedFilter.keyValue] == opt.value ? true : false}
+                                                    aria-label="Checkbox for following text input" /> :
+                                                    <InputGroup.Checkbox onChange={handleCheckBoxRadio.bind(this)}
+                                                        name={opt.value} checked={filterState[opt.value] || false}
+                                                        aria-label="Checkbox for following text input" />
                                             }
                                         </InputGroup.Prepend>
-                                        {/* <FormControl aria-label="Text input with checkbox" /> */}
                                         <div className="key-name">{opt.display}</div>
                                     </InputGroup>
                                 </div>
