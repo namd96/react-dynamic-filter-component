@@ -37,7 +37,7 @@ const filterOptions = [
         customComponent: (props) => {
             return <div>
                 This is purely custom I can do anything here
-                    <input name="testInput" value={props.value.testInput || ""} onChange={(e) => props.handleInputTextChange(e)}></input>
+                    <input name="testInput" value={props.value && props.value.customInput.testInput || ""} onChange={(e) => props.handleInputTextChange(e)}></input>
             </div>
         },
         options: [

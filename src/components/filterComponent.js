@@ -14,23 +14,41 @@ const FilterComponent = props => {
     const handleClose = () => {
         console.log("see the output", filterState)
         props.returnStateToFilterMaster(filterState);
-        setShow(false);
+        // setShow(false);
     }
     const handleClear = () => {
-        setShow(false)
+        // setShow(false)
         setFilterState(false)
         props.returnStateToFilterMaster(false);
     }
-    const handleInputTextChange = (e) => {
+    const handleCheckboxChange = (e) => {
+        console.log("selected filter", filterState[selectedFilter.keyValue], e.target.name, e.target.value)
+
+        let test = [];
+        test.push(e.target.value)
         setFilterState({
             ...filterState,
-            [e.target.name]: e.target.value
+            [selectedFilter.keyValue]: filterState[selectedFilter.keyValue] ? filterState[selectedFilter.keyValue].concat(e.target.value) : test
         })
     }
-    const handleCheckBoxRadio = (e) => {
+
+    const handleInputTextChange = e => {
+        let test = [];
+        console.log("vd",e.target.value)
+        test.push(e.target.value)
         setFilterState({
             ...filterState,
-            [e.target.name]: !filterState[e.target.name]
+            [selectedFilter.keyValue] : {[e.target.name]: e.target.value}
+        })
+    }
+    const handleRadio = (e) => {
+        console.log("selected filter", selectedFilter)
+        let test = [];
+        test.push(e.target.name)
+        setFilterState({
+            ...filterState,
+            [selectedFilter.keyValue]: filterState[selectedFilter.keyValue] ? filterState[selectedFilter.keyValue].concat(e.target.name) : test,
+
         })
     }
 
@@ -40,7 +58,7 @@ const FilterComponent = props => {
     return (
         <div style={{ width: "fit-content" }}>
 
-            <Button variant="primary" onClick={handleShow.bind(this)} >View Details </Button>
+            <Button variant="primary" onClick={handleShow.bind(this)} >Filters</Button>
             <Modal show={show} onHide={handleClose.bind(this)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Filters</Modal.Title>
@@ -54,7 +72,6 @@ const FilterComponent = props => {
                                         <div className="key-name">{filterOp.keyDisplay}</div>
                                         <hr className="key-separator" />
                                     </div>
-
                                 })
                             }
                         </div>
@@ -72,12 +89,12 @@ const FilterComponent = props => {
                                     <InputGroup className="mb-3">
                                         <InputGroup.Prepend >
                                             {
-                                                selectedFilter.radio ? <InputGroup.Radio onChange={handleInputTextChange.bind(this)}
-                                                    name={selectedFilter.keyValue} value={opt.value}
-                                                    checked={filterState[selectedFilter.keyValue] == opt.value ? true : false}
+                                                selectedFilter.radio ? <InputGroup.Radio onChange={handleCheckboxChange.bind(this)}
+                                                    name={opt.value} value={opt.value}
+                                                    checked={filterState[selectedFilter.keyValue] ? filterState[selectedFilter.keyValue].includes(opt.value) : false}
                                                     aria-label="Checkbox for following text input" /> :
-                                                    <InputGroup.Checkbox onChange={handleCheckBoxRadio.bind(this)}
-                                                        name={opt.value} checked={filterState[opt.value] || false}
+                                                    <InputGroup.Checkbox onChange={handleRadio.bind(this)}
+                                                        name={opt.value} checked={ filterState[selectedFilter.keyValue] && filterState[selectedFilter.keyValue].constructor === Array   ? filterState[selectedFilter.keyValue].includes(opt.value) : false}
                                                         aria-label="Checkbox for following text input" />
                                             }
                                         </InputGroup.Prepend>
