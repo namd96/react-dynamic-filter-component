@@ -37,7 +37,7 @@ const filterOptions = [
         customComponent: (props) => {
             return <div>
                 This is purely custom I can do anything here
-                    <input name="testInput" value={props.value && props.value.customInput[0].testInput || ""} onChange={(e) => props.handleCustomComponentValue([{ testInput     :e.target.value}])}></input>
+                    <input name="testInput" value={props.value && props.value.customInput && props.value.customInput[0].testInput || ""} onChange={(e) => props.handleCustomComponentValue([{ testInput     :e.target.value}])}></input>
             </div>
         },
       
