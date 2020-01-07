@@ -14,10 +14,10 @@ const FilterComponent = props => {
     const handleClose = () => {
         console.log("see the output", filterState)
         props.returnStateToFilterMaster(filterState);
-        // setShow(false);
+        setShow(false);
     }
     const handleClear = () => {
-        // setShow(false)
+        setShow(false)
         setFilterState(false)
         props.returnStateToFilterMaster(false);
     }
@@ -32,13 +32,13 @@ const FilterComponent = props => {
         })
     }
 
-    const handleInputTextChange = e => {
+    const handleCustomComponentValue = value => {
         let test = [];
-        console.log("vd",e.target.value)
-        test.push(e.target.value)
+        console.log("vd",value)
+        test.push(value)
         setFilterState({
             ...filterState,
-            [selectedFilter.keyValue] : {[e.target.name]: e.target.value}
+            [selectedFilter.keyValue] : value
         })
     }
     const handleRadio = (e) => {
@@ -79,7 +79,7 @@ const FilterComponent = props => {
                             {
                                 selectedFilter ? selectedFilter.customComponent ? <div>
                                     {selectedFilter.customComponent({
-                                        handleInputTextChange: handleInputTextChange.bind(this),
+                                        handleCustomComponentValue: handleCustomComponentValue.bind(this),
                                         value: filterState
                                     })}
 
