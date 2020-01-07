@@ -3,21 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/icons": "^4.5.1",
     "clsx": "^1.0.4",
-    "message-display-module": "^1.0.0",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
-    "react-bootstrap-table-next": "^3.3.1",
-    "react-bootstrap-table2-paginator": "^2.1.0",
-    "react-burger-menu": "^2.6.11",
-    "react-demo-package-try-component": "^0.1.1",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0",
-    "react-slick": "^0.25.2",
-    "slick-carousel": "^1.8.1",
-    "socket.io-client": "^2.3.0",
-    "survey-react": "^1.1.19"
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
